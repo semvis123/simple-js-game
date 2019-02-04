@@ -48,7 +48,7 @@ class Block{
         this._blockWidth = game._width/3;
         this._blockHeight = game._height/3;
         this._isSet = false;
-        this._state = 'x';
+        this._state = 'X';
         this._x = this._column*this._blockWidth;
         this._y = this._row*this._blockHeight;
     }
@@ -56,9 +56,14 @@ class Block{
         this._game._ctx.beginPath();
         this._game._ctx.rect(this._x, this._y, this._blockWidth, this._blockHeight);
         this._game._ctx.stroke();
-        this._game._ctx.font = "30px Ariel";
-        this._game._ctx.fillStyle = "red";
-        this._game._ctx.fillText(this._state, this._x+(this._blockWidth / 2)-2, this._y+(this._blockHeight / 2)-2);
+        this._game._ctx.font = "30px Arial";
+        if(this._state=='X'){
+            this._game._ctx.fillStyle = "red";
+        }else{
+            this._game._ctx.fillStyle = "blue";
+        }
+
+        this._game._ctx.fillText(this._state, this._x+(this._blockWidth / 2)-9, this._y+(this._blockHeight / 2)+9);
     }
 }
 var game = new Game(document.getElementsByTagName('canvas')[0], 300, 300); // create an instance of the game
