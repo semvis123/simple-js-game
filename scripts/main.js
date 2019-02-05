@@ -208,6 +208,18 @@ class Game {
         else if(!blocks[0][2]._isSet){
             blocks[0][2]._click();
         }
+        else if(!blocks[0][1]._isSet){
+            blocks[0][1]._click();
+        }
+        else if(!blocks[2][1]._isSet){
+            blocks[2][1]._click();
+        }
+        else if(!blocks[1][0]._isSet){
+            blocks[1][0]._click();
+        }
+        else if(!blocks[1][2]._isSet){
+            blocks[1][2]._click();
+        }
 
     }
 }
