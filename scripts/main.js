@@ -12,7 +12,7 @@ class Game {
         this._height = height;
         this._playing = true;
         this._ctx = canvas.getContext('2d'); // store context to draw something
-        this._gameNum=0
+        this._gameNum=0;
         canvas.addEventListener('click', this._onClick, false);
     }
     _createBlocks() {
@@ -25,7 +25,7 @@ class Game {
     }
     _winning(blocks,x, d) {
         var a=true;
-        if (x=="X"){
+        if (x==="X"){
             this._ctx.strokeStyle = "#FF0000";
         }else{
             this._ctx.strokeStyle = "#0000FF";
@@ -176,9 +176,8 @@ class Game {
             return 0; //0 means center
         }else if((i===0||i===2)&&(j===0||j===2)){
             return 1; //1 means corner
-        }else{
-            return 2; //2 means side
         }
+        return 2; //2 means side
     }
     _calcScoreAI(emptySpot,blocks,set,topScore){
            var tScore=topScore;
@@ -320,7 +319,7 @@ class Block{
         this._game._ctx.beginPath();
         this._game._ctx.rect(this._x, this._y, this._blockWidth, this._blockHeight);
         this._game._ctx.stroke();
-        this._game._ctx.font = String(parseInt(this._game._height/10))+"px Arial";
+        this._game._ctx.font = String(parseInt(this._game._height/10, 10))+"px Arial";
         if(this._state==='X'){
             this._game._ctx.fillStyle = "red";
         }
@@ -328,12 +327,12 @@ class Block{
             this._game._ctx.fillStyle = "blue";
         }
 
-        this._game._ctx.fillText(this._state, this._x+(this._blockWidth / 2)-parseInt(this._game._height / 20), this._y+(this._blockHeight / 2)+9);
+        this._game._ctx.fillText(this._state, this._x+(this._blockWidth / 2)-parseInt(this._game._height / 20, 10), this._y+(this._blockHeight / 2)+9);
     }
     _click(){
         if(!this._isSet){
             this._game._gameNum++;
-            console.log(this._game._gameNum)
+            console.log(this._game._gameNum);
             if (this._game._currentPlayer===0){
                 this._state = 'X';
                 this._isSet = true;
@@ -350,6 +349,7 @@ class Block{
                     }
                     else{
                      this._game._ai();
+                     
                  }}
 
             }
