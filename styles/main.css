@@ -1,1 +1,15 @@
 @CHARSET "UTF-8";
+*{
+    padding: 0px;
+    margin: 0px;
+    overflow-y: hidden; 
+    
+}
+body{
+    text-align: center;
+}
+canvas{
+    padding: 0px;
+    margin: 2px;
+    display: inline-block;    
+}
