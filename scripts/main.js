@@ -23,7 +23,7 @@ class Game {
             });
         });
     }
-    _winning(blocks,x, d) {
+    _winning(blocks, x, d) {
         var a=true;
         if (x==="X"){
             this._ctx.strokeStyle = "#FF0000";
