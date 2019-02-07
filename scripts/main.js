@@ -203,6 +203,18 @@ class Game {
            else if(blocks[0][2]._isSet&&blocks[2][1]._isSet&&emptySpot[0]===1&&emptySpot[1]===0){
                score += 100;
            }
+           else if(blocks[1][0]._isSet&&blocks[2][1]._isSet&&emptySpot[0]===2&&emptySpot[1]===0){
+               score += 100;
+           }
+           else if(blocks[2][1]._isSet&&blocks[1][2]._isSet&&emptySpot[0]===2&&emptySpot[1]===2){
+               score += 100;
+           }
+           else if(blocks[0][1]._isSet&&blocks[1][0]._isSet&&emptySpot[0]===0&&emptySpot[1]===2){
+               score += 100;
+           }
+           else if(blocks[0][1]._isSet&&blocks[1][2]._isSet&&emptySpot[0]===0&&emptySpot[1]===2){
+               score += 100;
+           }
            else if(blocks[0][2]._isSet&&blocks[2][0]._isSet&&emptySpot[0]===2&&emptySpot[1]===1){
                score += 100;
            }
