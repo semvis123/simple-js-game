@@ -12,7 +12,7 @@ class Game {
         this._height = height;
         this._playing = true;
         this._ctx = canvas.getContext('2d'); // store context to draw something
-        this._gameNum=0;
+        this._gameNum = 0 ;
         canvas.addEventListener('click', this._onClick, false);
     }
     _createBlocks() {
@@ -127,8 +127,8 @@ class Game {
         }else{
             game._createBlocks();
             game._currentPlayer = 0;
-            game._playing=true;
-            game._gameNum=0;
+            game._playing = true;
+            game._gameNum = 0;
         }
 
     }
@@ -141,16 +141,16 @@ class Game {
         if (this._playing){
         if(this._winning(blocks,"X",true)){
            alert("X won!!");
-           this._playing=false;
+           this._playing = false;
         }else if(this._winning(blocks,"O",true)){
             alert("AI won!!");
-            this._playing=false;
+            this._playing = false;
         }
         }else{
              if(this._winning(blocks,"X",true)){
-               this._playing=false;
+               this._playing = false;
             }else if(this._winning(blocks,"O",true)){
-                this._playing=false;
+                this._playing = false;
             }
         }
         requestAnimationFrame(this._play.bind(this)); // run play again ~60 times per sec    
@@ -180,33 +180,39 @@ class Game {
         return 2; //2 means side
     }
     _calcScoreAI(emptySpot,blocks,set,topScore){
-           var tScore=topScore;
-           var score=0;
-           var a=true;
+           var tScore = topScore;
+           var score = 0;
+           var a = true;
            var blocksAfterSet = JSON.parse(JSON.stringify(blocks));
-           var setsToWin=set+1;
+           var setsToWin = set+1;
            blocksAfterSet[emptySpot[0]][emptySpot[1]]._state = 'X';
            if(game._winning(blocksAfterSet,'X',false)){
-               score+=100;
-               a=false;
+               score += 100;
+               a = false;
            }
            blocksAfterSet[emptySpot[0]][emptySpot[1]]._state = 'O';
            if(game._winning(blocksAfterSet,'O',false)){
-               score+=1000;
-               a=false;
+               score += 1000;
+               a = false;
            }
            if(this._blockType(emptySpot[0],emptySpot[1])===0){
-               score+=100;
+               score += 90;
            }else if(blocks[2][2]._isSet&&blocks[1][1]._isSet&&emptySpot[0]===1&&emptySpot[1]===2){
-               score+=100;
+               score += 100;
+           }
+           else if(blocks[0][2]._isSet&&blocks[2][1]._isSet&&emptySpot[0]===1&&emptySpot[1]===0){
+               score += 100;
+           }
+           else if(blocks[0][2]._isSet&&blocks[2][0]._isSet&&emptySpot[0]===2&&emptySpot[1]===1){
+               score += 100;
            }
            else if(blocks[0][0]._isSet&&blocks[2][1]._isSet&&emptySpot[0]===2&&emptySpot[1]===0){
-               score+=100;
+               score += 100;
            }
            else if(this._blockType(emptySpot[0],emptySpot[1])===2&&this._gameNum!==1){
-//               score+=50;
+               score += 50;
            }else if(this._gameNum===1){
-               score+=60;
+               score += 60;
            }
 //           if (a){
 //           blocksAfterSet.forEach(function (row,i){
@@ -220,8 +226,8 @@ class Game {
 //                });
 //           });
 //        }
-           tScore+=score;
-           tScore+=1000 / setsToWin;
+           tScore += score;
+           tScore += 1000 / setsToWin;
            return tScore;
     }
     _ai(){
@@ -237,7 +243,7 @@ class Game {
             if(emptySpots.length===0){
                 console.log("tie");
                 alert("tie!");
-                this._playing=false;
+                this._playing = false;
             }
             var topScore = -10;
             var bestSet = [];
@@ -259,9 +265,9 @@ class Game {
 //               score+=100 / setsToWin;
 //               
                var score = game._calcScoreAI(emptySpot,blocks,0,0);
-               if (score>topScore){
-                    topScore=score;
-                    bestSet=[emptySpot[0],emptySpot[1]];
+               if (score > topScore){
+                    topScore = score;
+                    bestSet = [emptySpot[0],emptySpot[1]];
                 }
             });
             if(topScore!==-10 && topScore!==0){
