@@ -1,8 +1,9 @@
         /*globals blocks */
-        /*eslint-disable no-unused-params, no-use-before-define, no-undef-expression, no-unused-vars, no-extra-parens, no-invalid-this*/
+        /*eslint-disable no-unused-params, no-use-before-define, no-undef-expression, no-unused-vars, no-extra-parens, no-invalid-this, no-param-reassign, no-redeclare*/
         let blocks = [['x','x','x'],
                       ['o','o','o'],
                       ['x','x','o']];
+var choice;
 class Game {
     constructor(canvas, width, height) {
         canvas.width = width;
@@ -23,7 +24,7 @@ class Game {
             });
         });
     }
-    _winning(blocks, x, d) {
+    _winning(_blocks, x, d) {
         var a=true;
         if (x==="X"){
             this._ctx.strokeStyle = "#FF0000";
@@ -31,75 +32,75 @@ class Game {
             this._ctx.strokeStyle = "#0000FF";
         }
         switch (true){
-            case (blocks[0][0]._state === x && blocks[0][1]._state === x && blocks[0][2]._state === x):
+            case (_blocks[0][0]._state === x && _blocks[0][1]._state === x && _blocks[0][2]._state === x):
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(blocks[0][0]._x+game._width / 6 - 10,blocks[0][0]._y+game._height/6);
-                    this._ctx.lineTo(blocks[0][2]._x+game._width / 6 + 10,blocks[0][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - 10,_blocks[0][0]._y+game._height/6);
+                    this._ctx.lineTo(_blocks[0][2]._x+game._width / 6 + 10,_blocks[0][2]._y+game._height/6);
                     this._ctx.stroke();
                 }
                 break;
-            case (blocks[1][0]._state === x && blocks[1][1]._state === x && blocks[1][2]._state === x):
+            case (_blocks[1][0]._state === x && _blocks[1][1]._state === x && _blocks[1][2]._state === x):
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(blocks[1][0]._x+game._width / 6 - 10,blocks[1][0]._y+game._height/6);
-                    this._ctx.lineTo(blocks[1][2]._x+game._width / 6 + 10,blocks[1][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[1][0]._x+game._width / 6 - 10,_blocks[1][0]._y+game._height/6);
+                    this._ctx.lineTo(_blocks[1][2]._x+game._width / 6 + 10,_blocks[1][2]._y+game._height/6);
                     this._ctx.stroke();
                 }
                 break;
-            case (blocks[2][0]._state === x && blocks[2][1]._state === x && blocks[2][2]._state === x):
+            case (_blocks[2][0]._state === x && _blocks[2][1]._state === x && _blocks[2][2]._state === x):
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(blocks[2][0]._x+game._width / 6 - 10,blocks[2][0]._y+game._height/6);
-                    this._ctx.lineTo(blocks[2][2]._x+game._width / 6 + 10,blocks[2][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[2][0]._x+game._width / 6 - 10,_blocks[2][0]._y+game._height/6);
+                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 + 10,_blocks[2][2]._y+game._height/6);
                     this._ctx.stroke();
                 }
                 break;
-            case (blocks[0][0]._state === x && blocks[1][0]._state === x && blocks[2][0]._state === x):
+            case (_blocks[0][0]._state === x && _blocks[1][0]._state === x && _blocks[2][0]._state === x):
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(blocks[0][0]._x+game._width / 6 - 10,blocks[0][0]._y+game._height/6);
-                    this._ctx.lineTo(blocks[2][0]._x+game._width / 6 + 10,blocks[2][0]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - 10,_blocks[0][0]._y+game._height/6);
+                    this._ctx.lineTo(_blocks[2][0]._x+game._width / 6 + 10,_blocks[2][0]._y+game._height/6);
                     this._ctx.stroke();
                 }
                 break;
-            case (blocks[0][1]._state === x && blocks[1][1]._state === x && blocks[2][1]._state === x):
+            case (_blocks[0][1]._state === x && _blocks[1][1]._state === x && _blocks[2][1]._state === x):
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(blocks[0][1]._x+game._width / 6 - 10,blocks[0][1]._y+game._height/6);
-                    this._ctx.lineTo(blocks[2][1]._x+game._width / 6 + 10,blocks[2][1]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][1]._x+game._width / 6 - 10,_blocks[0][1]._y+game._height/6);
+                    this._ctx.lineTo(_blocks[2][1]._x+game._width / 6 + 10,_blocks[2][1]._y+game._height/6);
                     this._ctx.stroke();
                 }
                 break;
-            case (blocks[0][2]._state === x && blocks[1][2]._state === x && blocks[2][2]._state === x):
+            case (_blocks[0][2]._state === x && _blocks[1][2]._state === x && _blocks[2][2]._state === x):
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(blocks[0][2]._x+game._width / 6 - 10,blocks[0][2]._y+game._height/6);
-                    this._ctx.lineTo(blocks[2][2]._x+game._width / 6 + 10,blocks[2][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][2]._x+game._width / 6 - 10,_blocks[0][2]._y+game._height/6);
+                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 + 10,_blocks[2][2]._y+game._height/6);
                     this._ctx.stroke();
                 }
                 break;
-            case (blocks[0][0]._state === x && blocks[1][1]._state === x && blocks[2][2]._state === x):
+            case (_blocks[0][0]._state === x && _blocks[1][1]._state === x && _blocks[2][2]._state === x):
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(blocks[0][0]._x+game._width / 6 - 10,blocks[0][0]._y+game._height/6);
-                    this._ctx.lineTo(blocks[2][2]._x+game._width / 6 + 10,blocks[2][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - 10,_blocks[0][0]._y+game._height/6);
+                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 + 10,_blocks[2][2]._y+game._height/6);
                     this._ctx.stroke();
                 }
                 break;
-            case (blocks[0][2]._state === x && blocks[1][1]._state === x && blocks[2][0]._state === x):
+            case (_blocks[0][2]._state === x && _blocks[1][1]._state === x && _blocks[2][0]._state === x):
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(blocks[0][2]._x+game._width / 6 - 10,blocks[0][2]._y+game._height/6);
-                    this._ctx.lineTo(blocks[2][0]._x+game._width / 6 + 10,blocks[2][0]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][2]._x+game._width / 6 - 10,_blocks[0][2]._y+game._height/6);
+                    this._ctx.lineTo(_blocks[2][0]._x+game._width / 6 + 10,_blocks[2][0]._y+game._height/6);
                     this._ctx.stroke();
                 }
                 break;
@@ -167,7 +168,30 @@ class Game {
         this._ctx.rect(0, 0, this._width, this._height);
         this._ctx.stroke();
     }
-    
+    _isSimpleWinning(_blocks,x){
+        var a=true;
+        switch (true){
+            case (_blocks[0][0] === x && _blocks[0][1] === x && _blocks[0][2] === x):
+                break;
+            case (_blocks[1][0] === x && _blocks[1][1] === x && _blocks[1][2] === x):
+                break;
+            case (_blocks[2][0] === x && _blocks[2][1] === x && _blocks[2][2] === x):
+                break;
+            case (_blocks[0][0] === x && _blocks[1][0] === x && _blocks[2][0] === x):
+                break;
+            case (_blocks[0][1] === x && _blocks[1][1] === x && _blocks[2][1] === x):
+                break;
+            case (_blocks[0][2] === x && _blocks[1][2] === x && _blocks[2][2] === x):
+                break;
+            case (_blocks[0][0] === x && _blocks[1][1] === x && _blocks[2][2] === x):
+                break;
+            case (_blocks[0][2] === x && _blocks[1][1] === x && _blocks[2][0] === x):
+                break;
+            default:
+                a=false;
+        }
+        return a;
+    }
     _clear() {
         this._ctx.clearRect(0, 0, this._width, this._height); // just clear the whole game area
     }
@@ -179,145 +203,62 @@ class Game {
         }
         return 2; //2 means side
     }
-    _calcScoreAI(emptySpot,blocks,set,topScore){
-           var tScore = topScore;
-           var score = 0;
-           var a = true;
-           var blocksAfterSet = JSON.parse(JSON.stringify(blocks));
-           var setsToWin = set+1;
-           blocksAfterSet[emptySpot[0]][emptySpot[1]]._state = 'X';
-           if(game._winning(blocksAfterSet,'X',false)){
-               score += 100;
-               a = false;
-           }
-           blocksAfterSet[emptySpot[0]][emptySpot[1]]._state = 'O';
-           if(game._winning(blocksAfterSet,'O',false)){
-               score += 1000;
-               a = false;
-           }
-           if(this._blockType(emptySpot[0],emptySpot[1])===0){
-               score += 90;
-           }else if(blocks[2][2]._isSet&&blocks[1][1]._isSet&&emptySpot[0]===1&&emptySpot[1]===2){
-               score += 100;
-           }
-           else if(blocks[0][2]._isSet&&blocks[2][1]._isSet&&emptySpot[0]===1&&emptySpot[1]===0){
-               score += 100;
-           }
-           else if(blocks[1][0]._isSet&&blocks[2][1]._isSet&&emptySpot[0]===2&&emptySpot[1]===0){
-               score += 100;
-           }
-           else if(blocks[2][1]._isSet&&blocks[1][2]._isSet&&emptySpot[0]===2&&emptySpot[1]===2){
-               score += 100;
-           }
-           else if(blocks[0][1]._isSet&&blocks[1][0]._isSet&&emptySpot[0]===0&&emptySpot[1]===2){
-               score += 100;
-           }
-           else if(blocks[0][1]._isSet&&blocks[1][2]._isSet&&emptySpot[0]===0&&emptySpot[1]===2){
-               score += 100;
-           }
-           else if(blocks[0][2]._isSet&&blocks[2][0]._isSet&&emptySpot[0]===2&&emptySpot[1]===1){
-               score += 100;
-           }
-           else if(blocks[0][0]._isSet&&blocks[2][1]._isSet&&emptySpot[0]===2&&emptySpot[1]===0){
-               score += 100;
-           }
-           else if(this._blockType(emptySpot[0],emptySpot[1])===2&&this._gameNum!==1){
-               score += 50;
-           }else if(this._gameNum===1){
-               score += 60;
-           }
-//           if (a){
-//           blocksAfterSet.forEach(function (row,i){
-//                row.forEach(function (column,j){
-//                    if(blocksAfterSet[i][j]._state===''){
-//                        score=game._calcScoreAI([i,j],blocksAfterSet,setsToWin,tScore);
-//                        if(score>tScore){
-//                        tScore=score;
-//                        console.log(score);
-//                    }}
-//                });
-//           });
-//        }
-           tScore += score;
-           tScore += 1000 / setsToWin;
-           return tScore;
-    }
-    _ai(){
-        if(this._playing){
-            var emptySpots = [];
-            blocks.forEach(function (row,i){
-                row.forEach(function (column,j){
-                    if(blocks[i][j]._state===''){
-                        emptySpots.push([i,j]);
-                    }
-                });
-            });
-            if(emptySpots.length===0){
-                console.log("tie");
-                alert("tie!");
-                this._playing = false;
-            }
-            var topScore = -10;
-            var bestSet = [];
-            emptySpots.forEach(function (emptySpot){
-//               var score=0;
-//               var blocksAfterSet = JSON.parse(JSON.stringify(blocks));
-//               var setsToWin=999;
-//               blocksAfterSet[emptySpot[0]][emptySpot[1]]._state = 'X';
-//               if(game._winning(blocksAfterSet,'X',false)){
-//                   score+=100;
-//               }
-//               blocksAfterSet[emptySpot[0]][emptySpot[1]]._state = 'O';
-//               if(game._winning(blocksAfterSet,'O',false)){
-//                   score+=1000;
-//                   setsToWin=1;
-//               }
-//               
-//               
-//               score+=100 / setsToWin;
-//               
-               var score = game._calcScoreAI(emptySpot,blocks,0,0);
-               if (score > topScore){
-                    topScore = score;
-                    bestSet = [emptySpot[0],emptySpot[1]];
+    _ai(_game,depth,isAiTurn){// also known as minimax algorithm
+        _game = Array.from(_game);
+        var emptySpots=[];
+        var scores=[];
+        var player = isAiTurn?'O':'X';
+        
+        _game.forEach(function (row,i) {
+            row.forEach(function(column,j){
+                if(_game[i][j]===''){
+                    emptySpots.push([i,j]);
                 }
-            });
-            if(topScore!==-10 && topScore!==0){
-                blocks[bestSet[0]][bestSet[1]]._click();
-            }
-//            else if(!blocks[1][1]._isSet){
-//                blocks[1][1]._click();
-//            }else if(blocks[1][2]._isSet && blocks[2][0]._isSet && !blocks[2][2]._isSet){
-//                blocks[2][2]._click();
-//            }else if(blocks[1][2]._isSet && blocks[2][1]._isSet && !blocks[2][2]._isSet){
-//                blocks[2][2]._click();
-//            }else if(blocks[0][0]._isSet && blocks[1][2]._isSet && !blocks[0][2]._isSet){
-//                blocks[0][2]._click();
-//            }else if(!blocks[0][0]._isSet){
-//                blocks[0][0]._click();
-//            }else if(!blocks[2][0]._isSet){
-//                blocks[2][0]._click();
-//            }
-//            else if(!blocks[2][2]._isSet){
-//                blocks[2][2]._click();
-//            }
-//            else if(!blocks[0][2]._isSet){
-//                blocks[0][2]._click();
-//            }
-//            else if(!blocks[0][1]._isSet){
-//                blocks[0][1]._click();
-//            }
-//            else if(!blocks[2][1]._isSet){
-//                blocks[2][1]._click();
-//            }
-//            else if(!blocks[1][0]._isSet){
-//                blocks[1][0]._click();
-//            }
-//            else if(!blocks[1][2]._isSet){
-//                blocks[1][2]._click();
-//            }
-    
+            });     
+        });
+        
+        if(this._isSimpleWinning(_game,'O')){
+          return {score: 10};
         }
+        else if(this._isSimpleWinning(_game,'X')){
+          return {score: -10};
+        }
+        else if(emptySpots.length == 0){
+          return {score: 0};
+        }
+        var moves= [];
+        emptySpots.forEach(function (emptySpot, i){
+            var move ={};
+            move.index = emptySpot;
+            _game[emptySpot[0]][emptySpot[1]] = player;
+            move.score = game._ai(_game,depth++,!isAiTurn).score;
+//            _game[emptySpot[0]][emptySpot[1]] = move.index;
+            moves.push(move);
+        });
+        var bestMove;
+        console.log(moves,depth);
+        if(isAiTurn){
+          var bestScore1 = -100000;
+          for(var k = 0; k < moves.length; k++){
+            if(moves[k].score > bestScore1){
+              bestScore1 = moves[k].score;
+              bestMove = k;
+            }
+          }
+        }
+        else{
+          var bestScore2 = 100000;
+          for(var l = 0; l < moves.length; l++){
+            if(moves[l].score < bestScore2){
+              bestScore2 = moves[l].score;
+              bestMove = l;
+            }
+          }
+        }
+    
+        return moves[bestMove];
+
+
     }
 
 }
@@ -366,7 +307,16 @@ class Block{
                         alert("AI won!!");
                     }
                     else{
-                     this._game._ai();
+                         var simpleGame = [[],[],[]];
+                         blocks.forEach(function (row,i){
+                             row.forEach(function (column,j){
+                                 simpleGame[i][j] = blocks[i][j]._state;
+                             })
+                         })
+                         console.log(simpleGame);
+                         let bestChoice = this._game._ai(simpleGame,0,true);
+                         console.log(bestChoice)
+                         blocks[bestChoice.index[0]][bestChoice.index[1]]._click();
                      
                  }}
 
