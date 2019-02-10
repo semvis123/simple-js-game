@@ -1,4 +1,4 @@
-        /*globals blocks */
+       /*globals blocks */
         /*eslint-disable no-unused-params, no-use-before-define, no-undef-expression, no-unused-vars, no-extra-parens, no-invalid-this, no-param-reassign, no-redeclare*/
         let blocks = [['x','x','x'],
                       ['o','o','o'],
@@ -13,27 +13,27 @@ class Game {
         this._height = height;
         this._playing = true;
         this._ctx = canvas.getContext('2d'); // store context to draw something
-        this._gameNum = 0 ;
+        this._gameNum = 0 ; //counter for game turns
         canvas.addEventListener('click', this._onClick, false);
     }
     _createBlocks() {
         blocks.forEach(function (row,i){
             row.forEach(function (block,j){
-                blocks[i][j] = new Block(i,j);
+                blocks[i][j] = new Block(i,j); //create blocks
                 console.log(blocks[i][j]);
             });
         });
     }
-    _winning(_blocks, x, d) {
+    _winning(_blocks, x, d) {// the winning function used for drawing lines
         var a=true;
         if (x==="X"){
-            this._ctx.strokeStyle = "#FF0000";
+            this._ctx.strokeStyle = "#FF0000";//red
         }else{
-            this._ctx.strokeStyle = "#0000FF";
+            this._ctx.strokeStyle = "#0000FF";//blue
         }
         switch (true){
             case (_blocks[0][0]._state === x && _blocks[0][1]._state === x && _blocks[0][2]._state === x):
-                if(d){
+                if(d){ // use d for enabling drawing
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
                     this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - 10,_blocks[0][0]._y+game._height/6);
@@ -119,7 +119,7 @@ class Game {
                 row.forEach(function (column,j){
                     if (x > blocks[i][j]._x && x < blocks[i][j]._x+blocks[i][j]._blockWidth){
                         if (y > blocks[i][j]._y && y < blocks[i][j]._y+blocks[i][j]._blockHeight){
-                            blocks[i][j]._click();
+                            blocks[i][j]._click(); //call the click funtion of the object which has the cursor/click in it
                         }
                     }
                 });
@@ -169,6 +169,7 @@ class Game {
         this._ctx.stroke();
     }
     _isSimpleWinning(_blocks,x){
+        /** a simpler version to check if game state is winning**/
         var a=true;
         switch (true){
             case (_blocks[0][0] === x && _blocks[0][1] === x && _blocks[0][2] === x):
@@ -195,7 +196,7 @@ class Game {
     _clear() {
         this._ctx.clearRect(0, 0, this._width, this._height); // just clear the whole game area
     }
-    _blockType(i,j){
+    _blockType(i,j){ // currently not used
         if(i===1&&j===1){
             return 0; //0 means center
         }else if((i===0||i===2)&&(j===0||j===2)){
@@ -204,40 +205,48 @@ class Game {
         return 2; //2 means side
     }
     _ai(_game,depth,isAiTurn){// also known as minimax algorithm
-        _game = Array.from(_game);
+        _game = JSON.parse(JSON.stringify(_game)); // copy the game in an array
         var emptySpots=[];
-        var scores=[];
-        var player = isAiTurn?'O':'X';
-        
+        var player = isAiTurn?'O':'X'; // set the player 'X' or 'O' based on isAiTurn
+        console.log(player);
         _game.forEach(function (row,i) {
             row.forEach(function(column,j){
                 if(_game[i][j]===''){
-                    emptySpots.push([i,j]);
+                    emptySpots.push([i,j]); // add indexies of emptyspots to a variable
                 }
             });     
         });
         
         if(this._isSimpleWinning(_game,'O')){
-          return {score: 10};
+          return {score: 10-depth};
         }
         else if(this._isSimpleWinning(_game,'X')){
-          return {score: -10};
+          return {score: -10+depth};
         }
-        else if(emptySpots.length == 0){
+        else if(emptySpots.length === 0){
           return {score: 0};
         }
-        var moves= [];
+        
+        var moves = [];
         emptySpots.forEach(function (emptySpot, i){
+            console.log(emptySpot,i);
+            // Arrays.copyOf (firstArray, firstArray.length);
+//            var _game_new = JSON.parse(JSON.stringify(_game));
+            console.log(_game,depth);
             var move ={};
             move.index = emptySpot;
-            _game[emptySpot[0]][emptySpot[1]] = player;
+            debugger;
+            _game[emptySpots[i][0]][emptySpots[i][1]] = player;
+//            debugger;
+            console.log(_game);
             move.score = game._ai(_game,depth++,!isAiTurn).score;
-//            _game[emptySpot[0]][emptySpot[1]] = move.index;
+//            _game_new[emptySpots[i]] = move.index; // i don't know why the code i based this on did this
             moves.push(move);
         });
+        
         var bestMove;
         console.log(moves,depth);
-        if(isAiTurn){
+        if(!isAiTurn){
           var bestScore1 = -100000;
           for(var k = 0; k < moves.length; k++){
             if(moves[k].score > bestScore1){
@@ -262,7 +271,7 @@ class Game {
     }
 
 }
-class Block{
+class Block{ //every block has 'X' or 'O' or ''
     constructor(row,column) {
         this._game = game;
         this._row = row;
@@ -307,15 +316,15 @@ class Block{
                         alert("AI won!!");
                     }
                     else{
-                         var simpleGame = [[],[],[]];
+                         var simpleGame = [[],[],[]]; // create a simple array which only stores text
                          blocks.forEach(function (row,i){
                              row.forEach(function (column,j){
                                  simpleGame[i][j] = blocks[i][j]._state;
-                             })
-                         })
+                             });
+                         });
                          console.log(simpleGame);
                          let bestChoice = this._game._ai(simpleGame,0,true);
-                         console.log(bestChoice)
+                         console.log(bestChoice);
                          blocks[bestChoice.index[0]][bestChoice.index[1]]._click();
                      
                  }}
@@ -332,5 +341,5 @@ class Block{
 }
 var gameWidth = Math.min(window.innerWidth,window.innerHeight)-4;
 var game = new Game(document.getElementsByTagName('canvas')[0], gameWidth, gameWidth); // create an instance of the game
-game._createBlocks();
+game._createBlocks();// create the blocks for the 'X' or 'O' or ''
 game._play(); // start it
