@@ -170,104 +170,24 @@ class Game {
     }
     _isSimpleWinning(_blocks,x){
         /** a simpler version to check if game state is winning**/
-        var a=true;
-        switch (true){
-            case (_blocks[0][0] === x && _blocks[0][1] === x && _blocks[0][2] === x):
-                break;
-            case (_blocks[1][0] === x && _blocks[1][1] === x && _blocks[1][2] === x):
-                break;
-            case (_blocks[2][0] === x && _blocks[2][1] === x && _blocks[2][2] === x):
-                break;
-            case (_blocks[0][0] === x && _blocks[1][0] === x && _blocks[2][0] === x):
-                break;
-            case (_blocks[0][1] === x && _blocks[1][1] === x && _blocks[2][1] === x):
-                break;
-            case (_blocks[0][2] === x && _blocks[1][2] === x && _blocks[2][2] === x):
-                break;
-            case (_blocks[0][0] === x && _blocks[1][1] === x && _blocks[2][2] === x):
-                break;
-            case (_blocks[0][2] === x && _blocks[1][1] === x && _blocks[2][0] === x):
-                break;
-            default:
-                a=false;
+        var a=false;
+        if (_blocks[0][0] === x && _blocks[0][1] === x && _blocks[0][2] === x||
+            _blocks[1][0] === x && _blocks[1][1] === x && _blocks[1][2] === x||
+            _blocks[2][0] === x && _blocks[2][1] === x && _blocks[2][2] === x||
+            _blocks[0][0] === x && _blocks[1][0] === x && _blocks[2][0] === x||
+            _blocks[0][1] === x && _blocks[1][1] === x && _blocks[2][1] === x||
+            _blocks[0][2] === x && _blocks[1][2] === x && _blocks[2][2] === x||
+            _blocks[0][0] === x && _blocks[1][1] === x && _blocks[2][2] === x||
+            _blocks[0][2] === x && _blocks[1][1] === x && _blocks[2][0] === x){
+                a=true;
         }
         return a;
     }
     _clear() {
         this._ctx.clearRect(0, 0, this._width, this._height); // just clear the whole game area
     }
-    _blockType(i,j){ // currently not used
-        if(i===1&&j===1){
-            return 0; //0 means center
-        }else if((i===0||i===2)&&(j===0||j===2)){
-            return 1; //1 means corner
-        }
-        return 2; //2 means side
-    }
-    _ai(_game,depth,isAiTurn){// also known as minimax algorithm
-        _game = JSON.parse(JSON.stringify(_game)); // copy the game in an array
-        var emptySpots=[];
-        var player = isAiTurn?'O':'X'; // set the player 'X' or 'O' based on isAiTurn
-        console.log(player);
-        _game.forEach(function (row,i) {
-            row.forEach(function(column,j){
-                if(_game[i][j]===''){
-                    emptySpots.push([i,j]); // add indexies of emptyspots to a variable
-                }
-            });     
-        });
-        
-        if(this._isSimpleWinning(_game,'O')){
-          return {score: 10-depth};
-        }
-        else if(this._isSimpleWinning(_game,'X')){
-          return {score: -10+depth};
-        }
-        else if(emptySpots.length === 0){
-          return {score: 0};
-        }
-        
-        var moves = [];
-        emptySpots.forEach(function (emptySpot, i){
-            console.log(emptySpot,i);
-            // Arrays.copyOf (firstArray, firstArray.length);
-//            var _game_new = JSON.parse(JSON.stringify(_game));
-            console.log(_game,depth);
-            var move ={};
-            move.index = emptySpot;
-            debugger;
-            _game[emptySpots[i][0]][emptySpots[i][1]] = player;
-//            debugger;
-            console.log(_game);
-            move.score = game._ai(_game,depth++,!isAiTurn).score;
-//            _game_new[emptySpots[i]] = move.index; // i don't know why the code i based this on did this
-            moves.push(move);
-        });
-        
-        var bestMove;
-        console.log(moves,depth);
-        if(!isAiTurn){
-          var bestScore1 = -100000;
-          for(var k = 0; k < moves.length; k++){
-            if(moves[k].score > bestScore1){
-              bestScore1 = moves[k].score;
-              bestMove = k;
-            }
-          }
-        }
-        else{
-          var bestScore2 = 100000;
-          for(var l = 0; l < moves.length; l++){
-            if(moves[l].score < bestScore2){
-              bestScore2 = moves[l].score;
-              bestMove = l;
-            }
-          }
-        }
-    
-        return moves[bestMove];
-
-
+    _ai(_game,depth,isAiTurn){// also known as minimax algorithm 
+    //restarted from the beginning :)
     }
 
 }
