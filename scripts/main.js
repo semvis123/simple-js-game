@@ -188,6 +188,33 @@ class Game {
     }
     _ai(_game,depth,isAiTurn){// also known as minimax algorithm 
     //restarted from the beginning :)
+    var _game = JSON.parse(JSON.stringify(_game)); // deep clone array
+    var player = isAiTurn ? 'O' : 'X';
+    console.log(_game,depth,isAiTurn);
+    if(this._isSimpleWinning(_game,'x')){
+        return {score: 10-depth};
+    }else if(this._isSimpleWinning(_game,'O')){
+        return {score: depth-10};
+    }else if(depth>=8){
+        return {score: 0};
+    }
+    var possibleMoves = [];
+    _game.forEach(function(row,i){
+        row.forEach(function(column,j){
+            if(_game[i][j]===''){
+                _game[i][j] = player;
+                var newBoard = game._ai(_game,depth++,!isAiTurn);
+                var score = newBoard.score;
+                possibleMoves.push({index: [i,j], score: score});
+            }
+        })
+    });
+    possibleMoves.sort(function (a,b) {return a.score - b.score});
+    console.log(possibleMoves);
+    if(possibleMoves==0){
+        return{score:0}
+    }
+    return(possibleMoves[0]);
     }
 
 }
@@ -234,6 +261,10 @@ class Block{ //every block has 'X' or 'O' or ''
                     if(this._game._winning(blocks,"O",false)){
                         this._game._playing=false;
                         alert("AI won!!");
+                    }
+                    if(this._game._gameNum>=9){
+                        this._game._playing=false;
+                        alert("tie!!");
                     }
                     else{
                          var simpleGame = [[],[],[]]; // create a simple array which only stores text
