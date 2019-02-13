@@ -1,5 +1,4 @@
-       /*globals blocks */
-        /*eslint-disable no-unused-params, no-use-before-define, no-undef-expression, no-unused-vars, no-extra-parens, no-invalid-this, no-param-reassign, no-redeclare*/
+/*eslint-disable no-unused-params, no-use-before-define, no-undef-expression, no-unused-vars, no-extra-parens, no-invalid-this, no-param-reassign, no-redeclare*/
         let blocks = [['x','x','x'],
                       ['o','o','o'],
                       ['x','x','o']];
@@ -168,6 +167,7 @@ class Game {
         this._ctx.rect(0, 0, this._width, this._height);
         this._ctx.stroke();
     }
+    
     _isSimpleWinning(_blocks,x){
         /** a simpler version to check if game state is winning**/
         var a=false;
@@ -186,36 +186,85 @@ class Game {
     _clear() {
         this._ctx.clearRect(0, 0, this._width, this._height); // just clear the whole game area
     }
-    _ai(_game,depth,isAiTurn){// also known as minimax algorithm 
-    //restarted from the beginning :)
-    var _game = JSON.parse(JSON.stringify(_game)); // deep clone array
-    var player = isAiTurn ? 'O' : 'X';
-    console.log(_game,depth,isAiTurn);
-    if(this._isSimpleWinning(_game,'x')){
-        return {score: 10-depth};
-    }else if(this._isSimpleWinning(_game,'O')){
-        return {score: depth-10};
-    }else if(depth>=8){
-        return {score: 0};
+    _evalute(state) {
+	var score = 0;
+
+	if (this._isSimpleWinning(state, 'O')) {
+		score = +1;
+	}
+	else if (this._isSimpleWinning(state, 'X')) {
+		score = -1;
+	} else {
+		score = 0;
+	}
+
+	return score;
+}
+    _emptyCells(board){
+        var empty=[];
+        board.forEach(function (row,i){
+            row.forEach(function (column,j){
+               if(board[i][j]===""){
+                   empty.push([i,j]);
+               } 
+            });
+        });
+        return empty;
     }
-    var possibleMoves = [];
-    _game.forEach(function(row,i){
-        row.forEach(function(column,j){
-            if(_game[i][j]===''){
-                _game[i][j] = player;
-                var newBoard = game._ai(_game,depth++,!isAiTurn);
-                var score = newBoard.score;
-                possibleMoves.push({index: [i,j], score: score});
-            }
-        })
-    });
-    possibleMoves.sort(function (a,b) {return a.score - b.score});
-    console.log(possibleMoves);
-    if(possibleMoves==0){
-        return{score:0}
-    }
-    return(possibleMoves[0]);
-    }
+    _minimax(state, depth, ai) {
+	var best;
+	if (ai) {
+		best = [-1, -1, -1000];
+	}
+	else {
+		best = [-1, -1, +1000];
+	}
+
+	if (depth === 0 || this._isSimpleWinning(state, 'X')||this._isSimpleWinning(state, 'O')) {
+		var score = this._evalute(state);
+		return [-1, -1, score];
+	}
+
+	this._emptyCells(state).forEach(function (cell) {
+		var x = cell[0];
+		var y = cell[1];
+		state[x][y] = ai ? 'O':'X';
+		var score = game._minimax(state, depth - 1, !ai);
+		state[x][y] = '';
+		score[0] = x;
+		score[1] = y;
+
+		if (ai) {
+			if (score[2] > best[2])
+				best = score;
+		}
+		else {
+			if (score[2] < best[2])
+				best = score;
+		}
+	});
+
+	return best;
+}
+
+/* It calls the minimax function */
+    _aiTurn(board) {
+	var x, y;
+	var move;
+	var cell;
+	if (this._emptyCells(board).length == 9) {
+		x = parseInt(Math.random() * 3);
+		y = parseInt(Math.random() * 3);
+	}
+	else {
+		move = this._minimax(board, this._emptyCells(board).length, true);
+		x = move[0];
+		y = move[1];
+	}
+
+    if (board[x][y]==''){
+        return [x,y];
+    }}
 
 }
 class Block{ //every block has 'X' or 'O' or ''
@@ -274,9 +323,9 @@ class Block{ //every block has 'X' or 'O' or ''
                              });
                          });
                          console.log(simpleGame);
-                         let bestChoice = this._game._ai(simpleGame,0,true);
+                         let bestChoice = this._game._aiTurn(simpleGame);
                          console.log(bestChoice);
-                         blocks[bestChoice.index[0]][bestChoice.index[1]]._click();
+                         blocks[bestChoice[0]][bestChoice[1]]._click();//
                      
                  }}
 
