@@ -19,7 +19,7 @@ class Game {
         blocks.forEach(function (row,i){
             row.forEach(function (block,j){
                 blocks[i][j] = new Block(i,j); //create blocks
-                console.log(blocks[i][j]);
+//                console.log(blocks[i][j]);
             });
         });
     }
@@ -109,7 +109,6 @@ class Game {
         return a;
     }
     _onClick(click) {
-        console.log(click);
         if(game._playing){
             var rect = document.getElementsByTagName('canvas')[0].getBoundingClientRect();
             var x = click.clientX - rect.left;
@@ -118,7 +117,7 @@ class Game {
                 row.forEach(function (column,j){
                     if (x > blocks[i][j]._x && x < blocks[i][j]._x+blocks[i][j]._blockWidth){
                         if (y > blocks[i][j]._y && y < blocks[i][j]._y+blocks[i][j]._blockHeight){
-                            blocks[i][j]._click(); //call the click funtion of the object which has the cursor/click in it
+                            blocks[i][j]._click(); // Call the click function of the object which has click in it
                         }
                     }
                 });
@@ -135,8 +134,8 @@ class Game {
     _play() {
         this._clear(); // clear the whole canvas to draw something new
         this._ctx.lineWidth = 3;
-        this._ctx.strokeStyle = "#000";
-        this._drawBorder(); // draw a game area border
+        this._ctx.strokeStyle = "#ACD1E9";
+//        this._drawBorder(); // draw a game area border
         this._drawBlocks(); // draw the blocks for the 'X' or 'O'
         if (this._playing){
         if(this._winning(blocks,"X",true)){
@@ -155,21 +154,20 @@ class Game {
         }
         requestAnimationFrame(this._play.bind(this)); // run play again ~60 times per sec    
     }
-    _drawBlocks() {
+    _drawBlocks() { // Draw each block
         blocks.forEach(function (row,i){
             row.forEach(function (column,j){
                 blocks[i][j]._draw();
             });
         });
     }
-    _drawBorder() {
+    _drawBorder() { // Draw the border
         this._ctx.beginPath();
         this._ctx.rect(0, 0, this._width, this._height);
         this._ctx.stroke();
     }
     
-    _isSimpleWinning(_blocks,x){
-        /** a simpler version to check if game state is winning**/
+    _isSimpleWinning(_blocks,x){// a simpler version to check if game state is winning
         var a=false;
         if (_blocks[0][0] === x && _blocks[0][1] === x && _blocks[0][2] === x||
             _blocks[1][0] === x && _blocks[1][1] === x && _blocks[1][2] === x||
@@ -186,7 +184,7 @@ class Game {
     _clear() {
         this._ctx.clearRect(0, 0, this._width, this._height); // just clear the whole game area
     }
-    _evalute(state) {
+    _evalute(state) {//It calculates the score for a state
 	var score = 0;
 
 	if (this._isSimpleWinning(state, 'O')) {
@@ -211,7 +209,7 @@ class Game {
         });
         return empty;
     }
-    _minimax(state, depth, ai) {
+    _minimax(state, depth, ai) {// The minimax algoritm :)
 	var best;
 	if (ai) {
 		best = [-1, -1, -1000];
@@ -247,8 +245,7 @@ class Game {
 	return best;
 }
 
-/* It calls the minimax function */
-    _aiTurn(board) {
+    _aiTurn(board) {// It calls the minimax function
 	var x, y;
 	var move;
 	var cell;
@@ -279,10 +276,13 @@ class Block{ //every block has 'X' or 'O' or ''
         this._x = this._column*this._blockWidth;
         this._y = this._row*this._blockHeight;
     }
-    _draw() {
+    _draw() { // Draws the block
         this._game._ctx.beginPath();
-        this._game._ctx.rect(this._x, this._y, this._blockWidth, this._blockHeight);
+        this._game._ctx.fillStyle = "#ACD1E9";
+        this._game._ctx.rect(this._x, this._y, this._blockWidth-1, this._blockHeight-1);
         this._game._ctx.stroke();
+        this._game._ctx.fillStyle = "#F5FAFA";
+        this._game._ctx.fillRect(this._x, this._y, this._blockWidth, this._blockHeight);
         this._game._ctx.font = String(parseInt(this._game._height/10, 10))+"px Arial";
         if(this._state==='X'){
             this._game._ctx.fillStyle = "red";
@@ -296,7 +296,7 @@ class Block{ //every block has 'X' or 'O' or ''
     _click(){
         if(!this._isSet){
             this._game._gameNum++;
-            console.log(this._game._gameNum);
+//            console.log(this._game._gameNum);
             if (this._game._currentPlayer===0){
                 this._state = 'X';
                 this._isSet = true;
@@ -322,9 +322,9 @@ class Block{ //every block has 'X' or 'O' or ''
                                  simpleGame[i][j] = blocks[i][j]._state;
                              });
                          });
-                         console.log(simpleGame);
+//                         console.log(simpleGame);
                          let bestChoice = this._game._aiTurn(simpleGame);
-                         console.log(bestChoice);
+//                         console.log(bestChoice);
                          blocks[bestChoice[0]][bestChoice[1]]._click();//
                      
                  }}
