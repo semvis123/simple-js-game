@@ -24,6 +24,7 @@ class Game {
         });
     }
     _winning(_blocks, x, d) {// the winning function used for drawing lines
+        var fontSize = parseInt(this._height / 10, 10) / 3;
         var a=true;
         if (x==="X"){
             this._ctx.strokeStyle = "#FF0000";//red
@@ -35,8 +36,8 @@ class Game {
                 if(d){ // use d for enabling drawing
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - 10,_blocks[0][0]._y+game._height/6);
-                    this._ctx.lineTo(_blocks[0][2]._x+game._width / 6 + 10,_blocks[0][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6  - (fontSize / 2),_blocks[0][0]._y+game._height / 6 - (fontSize / 2));
+                    this._ctx.lineTo(_blocks[0][2]._x+game._width / 6  - (fontSize / 2),_blocks[0][2]._y+game._height / 6 - (fontSize / 2));
                     this._ctx.stroke();
                 }
                 break;
@@ -44,8 +45,8 @@ class Game {
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(_blocks[1][0]._x+game._width / 6 - 10,_blocks[1][0]._y+game._height/6);
-                    this._ctx.lineTo(_blocks[1][2]._x+game._width / 6 + 10,_blocks[1][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[1][0]._x+game._width / 6 - (fontSize / 2),_blocks[1][0]._y+game._height / 6 - (fontSize / 2));
+                    this._ctx.lineTo(_blocks[1][2]._x+game._width / 6 - (fontSize / 2),_blocks[1][2]._y+game._height / 6 - (fontSize / 2));
                     this._ctx.stroke();
                 }
                 break;
@@ -53,8 +54,8 @@ class Game {
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(_blocks[2][0]._x+game._width / 6 - 10,_blocks[2][0]._y+game._height/6);
-                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 + 10,_blocks[2][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[2][0]._x+game._width / 6 - (fontSize / 2),_blocks[2][0]._y+game._height / 6 - (fontSize / 2));
+                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 - (fontSize / 2),_blocks[2][2]._y+game._height / 6 - (fontSize / 2));
                     this._ctx.stroke();
                 }
                 break;
@@ -62,8 +63,8 @@ class Game {
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - 10,_blocks[0][0]._y+game._height/6);
-                    this._ctx.lineTo(_blocks[2][0]._x+game._width / 6 + 10,_blocks[2][0]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - (fontSize / 2),_blocks[0][0]._y+game._height / 6 - (fontSize / 2));
+                    this._ctx.lineTo(_blocks[2][0]._x+game._width / 6 - (fontSize / 2),_blocks[2][0]._y+game._height / 6 - (fontSize / 2));
                     this._ctx.stroke();
                 }
                 break;
@@ -71,8 +72,8 @@ class Game {
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(_blocks[0][1]._x+game._width / 6 - 10,_blocks[0][1]._y+game._height/6);
-                    this._ctx.lineTo(_blocks[2][1]._x+game._width / 6 + 10,_blocks[2][1]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][1]._x+game._width / 6 - (fontSize / 2),_blocks[0][1]._y+game._height / 6 - (fontSize / 2));
+                    this._ctx.lineTo(_blocks[2][1]._x+game._width / 6 - (fontSize / 2),_blocks[2][1]._y+game._height / 6 - (fontSize / 2));
                     this._ctx.stroke();
                 }
                 break;
@@ -80,8 +81,8 @@ class Game {
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(_blocks[0][2]._x+game._width / 6 - 10,_blocks[0][2]._y+game._height/6);
-                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 + 10,_blocks[2][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][2]._x+game._width / 6 - (fontSize / 2),_blocks[0][2]._y+game._height / 6 - (fontSize / 2));
+                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 - (fontSize / 2),_blocks[2][2]._y+game._height / 6 - (fontSize / 2));
                     this._ctx.stroke();
                 }
                 break;
@@ -89,8 +90,8 @@ class Game {
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - 10,_blocks[0][0]._y+game._height/6);
-                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 + 10,_blocks[2][2]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][0]._x+game._width / 6 - (fontSize / 2),_blocks[0][0]._y+game._height / 6 - (fontSize / 2));
+                    this._ctx.lineTo(_blocks[2][2]._x+game._width / 6 - (fontSize / 2),_blocks[2][2]._y+game._height / 6 - (fontSize / 2));
                     this._ctx.stroke();
                 }
                 break;
@@ -98,8 +99,8 @@ class Game {
                 if(d){
                     this._ctx.beginPath();
                     this._ctx.lineWidth = 5;
-                    this._ctx.moveTo(_blocks[0][2]._x+game._width / 6 - 10,_blocks[0][2]._y+game._height/6);
-                    this._ctx.lineTo(_blocks[2][0]._x+game._width / 6 + 10,_blocks[2][0]._y+game._height/6);
+                    this._ctx.moveTo(_blocks[0][2]._x+game._width / 6  - (fontSize / 2),_blocks[0][2]._y+game._height / 6 - (fontSize / 2));
+                    this._ctx.lineTo(_blocks[2][0]._x+game._width / 6  - (fontSize / 2),_blocks[2][0]._y+game._height / 6 - (fontSize / 2));
                     this._ctx.stroke();
                 }
                 break;
@@ -249,9 +250,9 @@ class Game {
 	var x, y;
 	var move;
 	var cell;
-	if (this._emptyCells(board).length == 9) {
-		x = parseInt(Math.random() * 3);
-		y = parseInt(Math.random() * 3);
+	if (this._emptyCells(board).length === 9) {
+		x = parseInt(Math.random() * 3, 10);
+		y = parseInt(Math.random() * 3, 10);
 	}
 	else {
 		move = this._minimax(board, this._emptyCells(board).length, true);
@@ -259,7 +260,7 @@ class Game {
 		y = move[1];
 	}
 
-    if (board[x][y]==''){
+    if (board[x][y]===''){
         return [x,y];
     }}
 
@@ -340,6 +341,7 @@ class Block{ //every block has 'X' or 'O' or ''
 
 }
 var gameWidth = Math.min(window.innerWidth,window.innerHeight)-4;
-var game = new Game(document.getElementsByTagName('canvas')[0], gameWidth, gameWidth); // create an instance of the game
+var gameHeight = Math.min(window.innerWidth,window.innerHeight)-4;
+var game = new Game(document.getElementsByTagName('canvas')[0], gameWidth, gameHeight); // create an instance of the game
 game._createBlocks();// create the blocks for the 'X' or 'O' or ''
 game._play(); // start it
